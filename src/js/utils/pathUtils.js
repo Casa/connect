@@ -62,8 +62,8 @@ export const getScriptType = (path: ?Array<number>): InputScriptType => {
     }
 };
 
-export const getOutputScriptType = (path: ?Array<number>): OutputScriptType => {
-    if (!Array.isArray(path) || path.length < 1) return 'PAYTOADDRESS';
+export const getOutputScriptType = (path: ?Array<number>, defaultType: OutputScriptType = 'PAYTOADDRESS'): OutputScriptType => {
+    if (!Array.isArray(path) || path.length < 1) return defaultType;
     const p = fromHardened(path[0]);
     switch (p) {
         case 48:
@@ -73,7 +73,7 @@ export const getOutputScriptType = (path: ?Array<number>): OutputScriptType => {
         case 84:
             return 'PAYTOWITNESS';
         default:
-            return 'PAYTOADDRESS';
+            return defaultType;
     }
 };
 
