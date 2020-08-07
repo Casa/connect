@@ -62,8 +62,14 @@ export const getScriptType = (path: ?Array<number>): InputScriptType => {
     }
 };
 
-export const getOutputScriptType = (path: ?Array<number>, defaultType: OutputScriptType = 'PAYTOADDRESS'): OutputScriptType => {
-    if (!Array.isArray(path) || path.length < 1) return defaultType;
+export const getOutputScriptType = (path: ?Array<number>): OutputScriptType => {
+    if (!Array.isArray(path) || path.length < 1) return 'PAYTOADDRESS';
+
+    // allow an unhardened 49 path to usee paytop2shwitness
+    if (path === 49) {
+        return 'PAYTOP2SHWITNESS'
+    }
+
     const p = fromHardened(path[0]);
     switch (p) {
         case 48:
@@ -73,7 +79,7 @@ export const getOutputScriptType = (path: ?Array<number>, defaultType: OutputScr
         case 84:
             return 'PAYTOWITNESS';
         default:
-            return defaultType;
+            return 'PAYTOADDRESS';
     }
 };
 
