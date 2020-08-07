@@ -76,7 +76,7 @@ const deriveOutputScript = async (getHDNode: GetHDNode, output: TransactionOutpu
         throw ERRORS.TypedError('Runtime', 'deriveOutputScript: Neither address or address_n is set');
     }
 
-    const scriptType = output.address_n     
+    const scriptType = output.address_n
         ? getOutputScriptType(output.address_n)
         : getAddressScriptType(output.address, coinInfo);
 
