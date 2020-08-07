@@ -66,7 +66,7 @@ export const getOutputScriptType = (path: ?Array<number>): OutputScriptType => {
     if (!Array.isArray(path) || path.length < 1) return 'PAYTOADDRESS';
 
     // allow an unhardened 49 path to usee paytop2shwitness
-    if (path === 49) {
+    if (path[0] === 49) {
         return 'PAYTOP2SHWITNESS'
     }
 
